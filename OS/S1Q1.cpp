@@ -7,7 +7,7 @@ verify if the system is in a safe state. Demonstrate the output for at least one
 #include <iostream>
 using namespace std;
 
-void calculateNeed(int need[][10], int max[][10], int alloc[][10], int n, int m) {
+void calculateNeed(int need[][3], int max[][3], int alloc[][3], int n, int m) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
             need[i][j] = max[i][j] - alloc[i][j];
@@ -15,17 +15,12 @@ void calculateNeed(int need[][10], int max[][10], int alloc[][10], int n, int m)
     }
 }
 
-bool isSafe(int processes[], int avail[], int max[][10], int alloc[][10], int n, int m) {
-    int need[10][10];
+bool isSafe(int processes[], int avail[], int max[][3], int alloc[][3], int n, int m) {
+    int need[5][3];
     calculateNeed(need, max, alloc, n, m);
-
-    bool finish[10] = {false};
-    int safeSeq[10];
-    int work[10];
-    for (int i = 0; i < m; i++) {
-        work[i] = avail[i];
-    }
-
+    bool finish[5] = {false};
+    int safeSeq[5], work[3];
+    for (int i = 0; i < m; i++) work[i] = avail[i];
     int count = 0;
     while (count < n) {
         bool found = false;
@@ -39,9 +34,7 @@ bool isSafe(int processes[], int avail[], int max[][10], int alloc[][10], int n,
                     }
                 }
                 if (flag) {
-                    for (int k = 0; k < m; k++) {
-                        work[k] += alloc[p][k];
-                    }
+                    for (int k = 0; k < m; k++) work[k] += alloc[p][k];
                     safeSeq[count++] = p;
                     finish[p] = true;
                     found = true;
@@ -53,11 +46,8 @@ bool isSafe(int processes[], int avail[], int max[][10], int alloc[][10], int n,
             return false;
         }
     }
-
     cout << "System is in a safe state.\nSafe sequence is: ";
-    for (int i = 0; i < n; i++) {
-        cout << safeSeq[i] << " ";
-    }
+    for (int i = 0; i < n; i++) cout << safeSeq[i] << " ";
     cout << endl;
     return true;
 }
