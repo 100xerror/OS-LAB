@@ -6,115 +6,116 @@ Allow the user to input memory block sizes and process sizes. Compare and displa
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
-
+#include <climits>
 using namespace std;
 
-class MemoryAllocator {
-private:
-    vector<int> memoryChunks;
-    vector<int> originalChunks;
+// Function to perform First Fit allocation
+void firstFit(vector<int> blocks, vector<int> processes) {
+    vector<int> allocation(processes.size(), -1);
 
-public:
-    MemoryAllocator(vector<int> chunks) : memoryChunks(chunks), originalChunks(chunks) {}
-
-    void resetMemory() {
-        memoryChunks = originalChunks;
+    for (int i = 0; i < processes.size(); i++) {
+        for (int j = 0; j < blocks.size(); j++) {
+            if (blocks[j] >= processes[i]) {
+                allocation[i] = j;
+                blocks[j] -= processes[i];
+                break;
+            }
+        }
     }
 
-    void firstFit(const vector<int>& requests) {
-        vector<int> allocation(requests.size(), -1);
+    cout << "First Fit Allocation:\n";
+    for (int i = 0; i < processes.size(); i++) {
+        if (allocation[i] != -1)
+            cout << "Process " << i + 1 << " allocated to block " << allocation[i] + 1 << "\n";
+        else
+            cout << "Process " << i + 1 << " not allocated\n";
+    }
+}
 
-        for (size_t i = 0; i < requests.size(); i++) {
-            for (size_t j = 0; j < memoryChunks.size(); j++) {
-                if (memoryChunks[j] >= requests[i]) {
-                    allocation[i] = j;
-                    memoryChunks[j] -= requests[i];
-                    break;
+// Function to perform Best Fit allocation
+void bestFit(vector<int> blocks, vector<int> processes) {
+    vector<int> allocation(processes.size(), -1);
+
+    for (int i = 0; i < processes.size(); i++) {
+        int bestIdx = -1;
+        for (int j = 0; j < blocks.size(); j++) {
+            if (blocks[j] >= processes[i]) {
+                if (bestIdx == -1 || blocks[j] < blocks[bestIdx]) {
+                    bestIdx = j;
                 }
             }
         }
 
-        cout << "First Fit Allocation:\n";
-        displayResults(requests, allocation);
+        if (bestIdx != -1) {
+            allocation[i] = bestIdx;
+            blocks[bestIdx] -= processes[i];
+        }
     }
 
-    void bestFit(const vector<int>& requests) {
-        vector<int> allocation(requests.size(), -1);
+    cout << "Best Fit Allocation:\n";
+    for (int i = 0; i < processes.size(); i++) {
+        if (allocation[i] != -1)
+            cout << "Process " << i + 1 << " allocated to block " << allocation[i] + 1 << "\n";
+        else
+            cout << "Process " << i + 1 << " not allocated\n";
+    }
+}
 
-        for (size_t i = 0; i < requests.size(); i++) {
-            int bestIdx = -1;
-            for (size_t j = 0; j < memoryChunks.size(); j++) {
-                if (memoryChunks[j] >= requests[i]) {
-                    if (bestIdx == -1 || memoryChunks[j] < memoryChunks[bestIdx]) {
-                        bestIdx = j;
-                    }
+// Function to perform Worst Fit allocation
+void worstFit(vector<int> blocks, vector<int> processes) {
+    vector<int> allocation(processes.size(), -1);
+
+    for (int i = 0; i < processes.size(); i++) {
+        int worstIdx = -1;
+        for (int j = 0; j < blocks.size(); j++) {
+            if (blocks[j] >= processes[i]) {
+                if (worstIdx == -1 || blocks[j] > blocks[worstIdx]) {
+                    worstIdx = j;
                 }
             }
-            if (bestIdx != -1) {
-                allocation[i] = bestIdx;
-                memoryChunks[bestIdx] -= requests[i];
-            }
         }
 
-        cout << "Best Fit Allocation:\n";
-        displayResults(requests, allocation);
-    }
-
-    void worstFit(const vector<int>& requests) {
-        vector<int> allocation(requests.size(), -1);
-
-        for (size_t i = 0; i < requests.size(); i++) {
-            int worstIdx = -1;
-            for (size_t j = 0; j < memoryChunks.size(); j++) {
-                if (memoryChunks[j] >= requests[i]) {
-                    if (worstIdx == -1 || memoryChunks[j] > memoryChunks[worstIdx]) {
-                        worstIdx = j;
-                    }
-                }
-            }
-            if (worstIdx != -1) {
-                allocation[i] = worstIdx;
-                memoryChunks[worstIdx] -= requests[i];
-            }
+        if (worstIdx != -1) {
+            allocation[i] = worstIdx;
+            blocks[worstIdx] -= processes[i];
         }
-
-        cout << "Worst Fit Allocation:\n";
-        displayResults(requests, allocation);
     }
 
-    void displayResults(const vector<int>& requests, const vector<int>& allocation) {
-        cout << "Process No.\tProcess Size\tBlock No.\n";
-        for (size_t i = 0; i < requests.size(); i++) {
-            cout << i + 1 << "\t\t" << requests[i] << "\t\t";
-            if (allocation[i] != -1) {
-                cout << allocation[i] + 1 << endl;
-            } else {
-                cout << "Not Allocated\n";
-            }
-        }
-        cout << endl;
+    cout << "Worst Fit Allocation:\n";
+    for (int i = 0; i < processes.size(); i++) {
+        if (allocation[i] != -1)
+            cout << "Process " << i + 1 << " allocated to block " << allocation[i] + 1 << "\n";
+        else
+            cout << "Process " << i + 1 << " not allocated\n";
     }
-};
+}
 
 int main() {
-    int memoryChunksArray[] = {100, 500, 200, 300, 600};
-    int processSizesArray[] = {212, 417, 112, 426};
+    int numBlocks, numProcesses;
 
-    vector<int> memoryChunks(memoryChunksArray, memoryChunksArray + 5);
-    vector<int> processSizes(processSizesArray, processSizesArray + 4);
+    // Input memory block sizes
+    cout << "Enter the number of memory blocks: ";
+    cin >> numBlocks;
+    vector<int> blocks(numBlocks);
+    cout << "Enter the sizes of the memory blocks:\n";
+    for (int i = 0; i < numBlocks; i++) {
+        cin >> blocks[i];
+    }
 
-    MemoryAllocator allocator(memoryChunks);
+    // Input process sizes
+    cout << "Enter the number of processes: ";
+    cin >> numProcesses;
+    vector<int> processes(numProcesses);
+    cout << "Enter the sizes of the processes:\n";
+    for (int i = 0; i < numProcesses; i++) {
+        cin >> processes[i];
+    }
 
-    cout << "Memory Allocation Simulation:\n\n";
-
-    allocator.firstFit(processSizes);
-    allocator.resetMemory();
-
-    allocator.bestFit(processSizes);
-    allocator.resetMemory();
-
-    allocator.worstFit(processSizes);
-
-    return 0;
+    // Perform allocations
+    firstFit(blocks, processes);
+    
+    // Reset memory block sizes for next strategy
+    cout << endl;
+    
+   bestFit(blocks,processes);
 }
