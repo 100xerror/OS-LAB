@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://www.static-contents.youth4work.com/university/Documents/Colleges/collegeLogo/52.png?v=20190215154120&t=brave" alt="College Logo">
-</p>
-
 # OS-LAB
 
 This repository contains a collection of Operating System laboratory programs and experiments. It serves as a resource for students and enthusiasts to explore and understand various concepts in operating systems through practical implementation.
