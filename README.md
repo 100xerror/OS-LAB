@@ -1,4 +1,6 @@
-![Test Image 1]([https://github.com/tograh/testrepository/3DTest.png](https://duckduckgo.com/?q=thapar%20logo&iax=images&ia=images&iai=https://www.static-contents.youth4work.com/university/Documents/Colleges/collegeLogo/52.png?v=20190215154120&t=brave))
+<p align="center">
+  <img src="https://www.static-contents.youth4work.com/university/Documents/Colleges/collegeLogo/52.png?v=20190215154120&t=brave" alt="College Logo">
+</p>
 
 # OS-LAB
 
