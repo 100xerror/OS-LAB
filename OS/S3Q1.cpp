@@ -7,7 +7,7 @@ Use the Banker's Algorithm to determine if the system is in a safe state. Show a
 #include <iostream>
 using namespace std;
 
-void calculateNeed(int need[][10], int max[][10], int alloc[][10], int n, int m) {
+void calculateNeed(int need[][3], int max[][3], int alloc[][3], int n, int m) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
             need[i][j] = max[i][j] - alloc[i][j];
@@ -15,13 +15,13 @@ void calculateNeed(int need[][10], int max[][10], int alloc[][10], int n, int m)
     }
 }
 
-bool isSafe(int processes[], int avail[], int max[][10], int alloc[][10], int n, int m) {
-    int need[10][10];
+bool isSafe(int processes[], int avail[], int max[][3], int alloc[][3], int n, int m) {
+    int need[5][3];
     calculateNeed(need, max, alloc, n, m);
 
-    bool finish[10] = {false};
-    int safeSeq[10];
-    int work[10];
+    bool finish[5] = {false};
+    int safeSeq[5];
+    int work[3];
     for (int i = 0; i < m; i++) {
         work[i] = avail[i];
     }
