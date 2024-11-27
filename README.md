@@ -4,6 +4,19 @@ This repository contains a collection of Operating System laboratory programs an
 
 ## Contents
 
+| File Name | Link |
+|-----------|------|
+| S1Q1.cpp | [S1Q1.cpp](https://github.com/100xerror/OS-LAB/blob/main/S1Q1.cpp) |
+| S1Q2.cpp | [S1Q2.cpp](https://github.com/100xerror/OS-LAB/blob/main/S1Q2.cpp) |
+| S2Q1.cpp | [S2Q1.cpp](https://github.com/100xerror/OS-LAB/blob/main/S2Q1.cpp) |
+| S2Q2.cpp | [S2Q2.cpp](https://github.com/100xerror/OS-LAB/blob/main/S2Q2.cpp) |
+| S3Q1.cpp | [S3Q1.cpp](https://github.com/100xerror/OS-LAB/blob/main/S3Q1.cpp) |
+| S3Q2.cpp | [S3Q2.cpp](https://github.com/100xerror/OS-LAB/blob/main/S3Q2.cpp) |
+
+Citations:
+[1] https://pplx-res.cloudinary.com/image/upload/v1732681682/user_uploads/xbjownune/image.jpg
+
+
 The repository includes the following:
 
 - **Process Scheduling Algorithms**: Implementation of popular scheduling algorithms such as First-Come-First-Serve (FCFS), Shortest Job First (SJF), and Round Robin (RR).
