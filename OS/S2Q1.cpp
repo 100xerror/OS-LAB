@@ -98,8 +98,11 @@ public:
 };
 
 int main() {
-    vector<int> memoryChunks = {100, 500, 200, 300, 600};
-    vector<int> processSizes = {212, 417, 112, 426};
+    int memoryChunksArray[] = {100, 500, 200, 300, 600};
+    int processSizesArray[] = {212, 417, 112, 426};
+
+    vector<int> memoryChunks(memoryChunksArray, memoryChunksArray + 5);
+    vector<int> processSizes(processSizesArray, processSizesArray + 4);
 
     MemoryAllocator allocator(memoryChunks);
 
@@ -115,4 +118,3 @@ int main() {
 
     return 0;
 }
-
