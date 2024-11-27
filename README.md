@@ -1,3 +1,5 @@
+![Test Image 1]([https://github.com/tograh/testrepository/3DTest.png](https://duckduckgo.com/?q=thapar%20logo&iax=images&ia=images&iai=https://www.static-contents.youth4work.com/university/Documents/Colleges/collegeLogo/52.png?v=20190215154120&t=brave))
+
 # OS-LAB
 
 This repository contains a collection of Operating System laboratory programs and experiments. It serves as a resource for students and enthusiasts to explore and understand various concepts in operating systems through practical implementation.
